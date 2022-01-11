@@ -27,6 +27,25 @@ SELECT actor.actor_id, actor.first_name, actor.last_name, COUNT(actor_id) AS fil
 
 /* 7. Is ‘Academy Dinosaur’ available for rent from Store 1? */
 
+/*  echo Step 1: which copies are at Store 1?*/
+
+SELECT film.film_id, film.title, store.store_id, inventory.inventory_id
+FROM inventory join store using (store_id) JOIN film USING (film_id)
+WHERE film.title = 'Academy Dinosaur' AND store.store_id = 1;
+
+/*  echo Step 2: pick an inventory_id to rent:*/
+
+SELECT inventory.inventory_id
+FROM inventory JOIN store USING (store_id)
+     JOIN film USING (film_id)
+     JOIN rental USING (inventory_id)
+WHERE film.title = 'Academy Dinosaur'
+      AND store.store_id = 1
+      AND NO EXISTS (SELECT * FROM rental
+                      WHERE rental.inventory_id = inventory.inventory_id
+                      AND rental.return_date IS NULL);
+
+
 /* 8. Insert a record to represent Mary Smith renting ‘Academy Dinosaur’ from Mike Hillyer at Store 1 today . */
 
 /* 9. When is ‘Academy Dinosaur’ due? */
