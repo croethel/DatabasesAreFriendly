@@ -48,6 +48,9 @@ WHERE film.title = 'Academy Dinosaur'
 
 /* 8. Insert a record to represent Mary Smith renting ‘Academy Dinosaur’ from Mike Hillyer at Store 1 today . */
 
+INSERT INTO rental (rental_date, inventory_id, customer_id, staff_id)
+VALUES (NOW(), 1, 1, 1);
+
 /* 9. When is ‘Academy Dinosaur’ due? */
 
 /* 10. What is that average running time of all the films in the sakila DB? */
